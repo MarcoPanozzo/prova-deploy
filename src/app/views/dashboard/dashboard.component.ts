@@ -7,6 +7,7 @@ import { OrderService } from '../../services/order.service';
 import { BaseResponseDto } from '../../interfaces/baseResponseDto';
 import { PageableDto } from '../../interfaces/pageableDto';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private studentiService: StudentiService,
     private orderService: OrderService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,10 @@ export class DashboardComponent implements OnInit {
   onPage(event) {
     this.page = event.first / event.rows + 1;
     this.load();
+  }
+
+  onClick(studente: StudentiDto) {
+    this.router.navigate(["dashboard", studente.id]);
   }
 
 }
